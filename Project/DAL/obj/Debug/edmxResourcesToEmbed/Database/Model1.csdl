@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvestrositeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Commnet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Pid" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Investor" Relationship="Self.FK_Commnets_Investors" FromRole="Commnets" ToRole="Investors" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Commnets_Post" FromRole="Commnets" ToRole="Post" />
+  </EntityType>
+  <EntityType Name="Entrepreneur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="inId" Type="Int32" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Entrepreneurs_Post" FromRole="Entrepreneurs" ToRole="Post" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payments_Entrepreneurs" FromRole="Entrepreneurs" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="Investor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Commnet" Relationship="Self.FK_Commnets_Investors" FromRole="Investors" ToRole="Commnets" />
+    <NavigationProperty Name="Payment" Relationship="Self.FK_Payments_Investors" FromRole="Investors" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="Manager">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Eid" Type="Int32" />
+    <Property Name="Iid" Type="Int32" />
+    <NavigationProperty Name="Entrepreneur" Relationship="Self.FK_Payments_Entrepreneurs" FromRole="Payments" ToRole="Entrepreneurs" />
+    <NavigationProperty Name="Investor" Relationship="Self.FK_Payments_Investors" FromRole="Payments" ToRole="Investors" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="eid" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Commnets" Relationship="Self.FK_Commnets_Post" FromRole="Post" ToRole="Commnets" />
+    <NavigationProperty Name="Entrepreneur" Relationship="Self.FK_Entrepreneurs_Post" FromRole="Post" ToRole="Entrepreneurs" />
+  </EntityType>
+  <Association Name="FK_Commnets_Investors">
+    <End Role="Investors" Type="Self.Investor" Multiplicity="1" />
+    <End Role="Commnets" Type="Self.Commnet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Investors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commnets">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commnets_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="Commnets" Type="Self.Commnet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commnets">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Entrepreneurs_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Entrepreneurs" Type="Self.Entrepreneur" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepreneurs">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Entrepreneurs">
+    <End Role="Entrepreneurs" Type="Self.Entrepreneur" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepreneurs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Investors">
+    <End Role="Investors" Type="Self.Investor" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payment" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Investors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvestrositeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Commnets" EntityType="Self.Commnet" />
+    <EntitySet Name="Entrepreneurs" EntityType="Self.Entrepreneur" />
+    <EntitySet Name="Investors" EntityType="Self.Investor" />
+    <EntitySet Name="Managers" EntityType="Self.Manager" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <AssociationSet Name="FK_Commnets_Investors" Association="Self.FK_Commnets_Investors">
+      <End Role="Investors" EntitySet="Investors" />
+      <End Role="Commnets" EntitySet="Commnets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commnets_Post" Association="Self.FK_Commnets_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Commnets" EntitySet="Commnets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Entrepreneurs_Post" Association="Self.FK_Entrepreneurs_Post">
+      <End Role="Post" EntitySet="Posts" />
+      <End Role="Entrepreneurs" EntitySet="Entrepreneurs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Entrepreneurs" Association="Self.FK_Payments_Entrepreneurs">
+      <End Role="Entrepreneurs" EntitySet="Entrepreneurs" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Investors" Association="Self.FK_Payments_Investors">
+      <End Role="Investors" EntitySet="Investors" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="InvestrositeModel.sysdiagram" />
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InvestrositeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Commnets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pid" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Entrepreneurs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar" MaxLength="50" />
+    <Property Name="inId" Type="int" />
+  </EntityType>
+  <EntityType Name="Investors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Managers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Role" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="nvarchar" MaxLength="50" />
+    <Property Name="Eid" Type="int" />
+    <Property Name="Iid" Type="int" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="50" />
+    <Property Name="eid" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Commnets_Investors">
+    <End Role="Investors" Type="Self.Investors" Multiplicity="1" />
+    <End Role="Commnets" Type="Self.Commnets" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Investors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commnets">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Commnets_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+    <End Role="Commnets" Type="Self.Commnets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commnets">
+        <PropertyRef Name="Pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Entrepreneurs_Post">
+    <End Role="Post" Type="Self.Post" Multiplicity="1" />
+    <End Role="Entrepreneurs" Type="Self.Entrepreneurs" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Post">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepreneurs">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Entrepreneurs">
+    <End Role="Entrepreneurs" Type="Self.Entrepreneurs" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepreneurs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Payments_Investors">
+    <End Role="Investors" Type="Self.Investors" Multiplicity="1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Investors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InvestrositeModelStoreContainer">
+    <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Commnets" EntityType="Self.Commnets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entrepreneurs" EntityType="Self.Entrepreneurs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Investors" EntityType="Self.Investors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Commnets_Investors" Association="Self.FK_Commnets_Investors">
+      <End Role="Investors" EntitySet="Investors" />
+      <End Role="Commnets" EntitySet="Commnets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Commnets_Post" Association="Self.FK_Commnets_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Commnets" EntitySet="Commnets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Entrepreneurs_Post" Association="Self.FK_Entrepreneurs_Post">
+      <End Role="Post" EntitySet="Post" />
+      <End Role="Entrepreneurs" EntitySet="Entrepreneurs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Entrepreneurs" Association="Self.FK_Payments_Entrepreneurs">
+      <End Role="Entrepreneurs" EntitySet="Entrepreneurs" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Payments_Investors" Association="Self.FK_Payments_Investors">
+      <End Role="Investors" EntitySet="Investors" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

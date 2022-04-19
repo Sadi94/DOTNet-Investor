@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="12ec7b3084384be09239ccb9332fa86e" Name="Diagram1">
+        <EntityTypeShape EntityType="InvestrositeModel.Admin" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Commnet" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Entrepreneur" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Investor" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Manager" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Payment" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InvestrositeModel.Post" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="InvestrositeModel.FK_Commnets_Investors" ManuallyRouted="false" />
+        <AssociationConnector Association="InvestrositeModel.FK_Commnets_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="InvestrositeModel.FK_Entrepreneurs_Post" ManuallyRouted="false" />
+        <AssociationConnector Association="InvestrositeModel.FK_Payments_Entrepreneurs" ManuallyRouted="false" />
+        <AssociationConnector Association="InvestrositeModel.FK_Payments_Investors" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InvestrositeModel.sysdiagram" Width="1.5" PointX="7.375" PointY="5.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
